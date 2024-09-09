@@ -58,5 +58,11 @@ pub fn tokenize(input: String) -> Vec<Token> {
     let mut lexer = Lexer::new(input);
     let mut tokens: Vec<Token> = vec![];
 
+    while let Some(token) = lexer.scan_next_token()
+    {
+        tokens.push(token);
+    }
+    tokens.push(Token::EOF);
+
     tokens
 }
