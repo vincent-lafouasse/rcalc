@@ -50,14 +50,28 @@ impl Lexer {
         }
     }
 
+    fn scan_number(&mut self) -> f64 {
+        0.0
+    }
+
     fn advance(&mut self) -> Option<u8> {
+        let out = self.peek();
+        self.current += 1;
+        out
+    }
+
+    fn peek(&self) -> Option<u8> {
         match !self.is_at_end() {
-            true => {
-                let out = self.chars[self.current];
-                self.current += 1;
-                Some(out)
-            }
+            true => Some(self.chars[self.current]),
             false => None,
+        }
+    }
+
+    fn peek_next(&self) -> Option<u8> {
+        if self.current + 1 >= self.chars.len() {
+            None
+        } else {
+            Some(self.chars[self.current + 1])
         }
     }
 
