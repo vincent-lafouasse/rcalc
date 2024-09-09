@@ -1,3 +1,4 @@
+#[derive(Debug)]
 pub enum Token {
     Number(i32),
     Identifier(String),
@@ -35,7 +36,6 @@ impl Lexer {
             b'=' => Some(Token::Equal),
             _ => None,
         }
-
     }
 
     fn advance(&mut self) -> Option<u8> {
@@ -45,7 +45,7 @@ impl Lexer {
                 self.current += 1;
                 Some(out)
             }
-            false => None
+            false => None,
         }
     }
 
@@ -58,8 +58,7 @@ pub fn tokenize(input: String) -> Vec<Token> {
     let mut lexer = Lexer::new(input);
     let mut tokens: Vec<Token> = vec![];
 
-    while let Some(token) = lexer.scan_next_token()
-    {
+    while let Some(token) = lexer.scan_next_token() {
         tokens.push(token);
     }
     tokens.push(Token::EOF);
