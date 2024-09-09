@@ -1,6 +1,6 @@
 #[derive(Debug)]
 pub enum Token {
-    Number(i32),
+    Number(f64),
     Identifier(String),
     Add,
     Multiply,
