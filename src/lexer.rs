@@ -2,6 +2,8 @@ pub enum Token {
     Number(i32),
     Add,
     Multiply,
+    Equal,
+    EOF,
 }
 
 pub struct Lexer {
@@ -22,6 +24,22 @@ impl Lexer {
 
     fn scan_next_token(&self) -> Option<Token> {
         Some(Token::Multiply)
+    }
+
+    fn advance(&mut self) -> Option<u8> {
+        match !self.is_at_end() {
+            true => {
+                let out = self.chars[self.current];
+                self.current += 1;
+                Some(out)
+            }
+            false => None
+        }
+            
+    }
+
+    fn is_at_end(&self) -> bool {
+        self.start >= self.chars.len()
     }
 }
 
