@@ -8,6 +8,18 @@ pub enum Token {
     EOF,
 }
 
+pub fn tokenize(input: String) -> Vec<Token> {
+    let mut lexer = Lexer::new(input);
+    let mut tokens: Vec<Token> = vec![];
+
+    while let Some(token) = lexer.scan_next_token() {
+        tokens.push(token);
+    }
+    tokens.push(Token::EOF);
+
+    tokens
+}
+
 pub struct Lexer {
     chars: Vec<u8>,
     start: usize,
@@ -52,16 +64,4 @@ impl Lexer {
     fn is_at_end(&self) -> bool {
         self.start >= self.chars.len()
     }
-}
-
-pub fn tokenize(input: String) -> Vec<Token> {
-    let mut lexer = Lexer::new(input);
-    let mut tokens: Vec<Token> = vec![];
-
-    while let Some(token) = lexer.scan_next_token() {
-        tokens.push(token);
-    }
-    tokens.push(Token::EOF);
-
-    tokens
 }
