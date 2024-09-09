@@ -1,5 +1,6 @@
 pub enum Token {
     Number(i32),
+    Identifier(String),
     Add,
     Multiply,
     Equal,
@@ -22,8 +23,19 @@ impl Lexer {
         }
     }
 
-    fn scan_next_token(&self) -> Option<Token> {
-        Some(Token::Multiply)
+    fn scan_next_token(&mut self) -> Option<Token> {
+        let c = match self.advance() {
+            None => return None,
+            Some(c) => c,
+        };
+
+        match c {
+            b'+' => Some(Token::Add),
+            b'*' => Some(Token::Multiply),
+            b'=' => Some(Token::Equal),
+            _ => None,
+        }
+
     }
 
     fn advance(&mut self) -> Option<u8> {
@@ -35,7 +47,6 @@ impl Lexer {
             }
             false => None
         }
-            
     }
 
     fn is_at_end(&self) -> bool {
