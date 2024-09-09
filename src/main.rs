@@ -1,18 +1,13 @@
 #![allow(dead_code)]
 #![allow(unused_mut)]
+#![allow(unused_variables)]
 
 use std::vec;
 
-enum NodeType {
+enum Token {
     Number(i32),
     Add,
     Multiply,
-}
-
-struct Node {
-    kind: NodeType,
-    left: Option<Box<Node>>,
-    right: Option<Box<Node>>,
 }
 
 struct Lexer {
@@ -30,10 +25,15 @@ impl Lexer {
             current: 0,
         }
     }
+
+    fn scan_next_token(&self) -> Option<Token> {
+        Some(Token::Multiply)
+    }
 }
 
-fn tokenize(input: String) -> Vec<NodeType> {
-    let mut tokens: Vec<NodeType> = vec![];
+fn tokenize(input: String) -> Vec<Token> {
+    let mut lexer = Lexer::new(input);
+    let mut tokens: Vec<Token> = vec![];
 
     tokens
 }
