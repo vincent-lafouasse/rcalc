@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_mut)]
+
 use std::vec;
 
 enum NodeType {
@@ -12,8 +15,24 @@ struct Node {
     right: Option<Box<Node>>,
 }
 
-fn tokenize(input: String) -> Vec<NodeType>
-{
+struct Lexer {
+    chars: Vec<u8>,
+    start: usize,
+    current: usize,
+}
+
+impl Lexer {
+    fn new(input: String) -> Self {
+        let chars: Vec<u8> = input.as_bytes().to_vec();
+        Self {
+            chars,
+            start: 0,
+            current: 0,
+        }
+    }
+}
+
+fn tokenize(input: String) -> Vec<NodeType> {
     let mut tokens: Vec<NodeType> = vec![];
 
     tokens
