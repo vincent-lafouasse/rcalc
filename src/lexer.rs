@@ -5,7 +5,7 @@ pub enum Token {
     Add,
     Multiply,
     Equal,
-    EOF,
+    Eof,
 }
 
 pub fn tokenize(input: String) -> Vec<Token> {
@@ -15,7 +15,7 @@ pub fn tokenize(input: String) -> Vec<Token> {
     while let Some(token) = lexer.scan_next_token() {
         tokens.push(token);
     }
-    tokens.push(Token::EOF);
+    tokens.push(Token::Eof);
 
     tokens
 }
