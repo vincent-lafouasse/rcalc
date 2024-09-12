@@ -43,21 +43,17 @@ impl Lexer {
             Some(c) => c,
         };
 
-        if let Some(token) = match c {
+        match c {
             b'+' => Some(Token::Add),
             b'*' => Some(Token::Multiply),
             b'=' => Some(Token::Equal),
-            (b'0'..=b'9') => None,
+            (b'0'..=b'9') => self.scan_number(),
             _ => None,
-        } {
-            return Some(token);
         }
-
-        None
     }
 
-    fn scan_number(&mut self) -> Option<f64> {
-        Some(0.0)
+    fn scan_number(&mut self) -> Option<Token> {
+        Some(Token::Number(0.0))
     }
 
     fn advance(&mut self) -> Option<u8> {
