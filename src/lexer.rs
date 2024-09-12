@@ -80,22 +80,26 @@ impl Lexer {
     }
 }
 
-fn is_digit(c: u8) -> bool {
-    c >= b'0' && c <= b'9'
-}
+struct ASCII;
 
-fn is_lower(c: u8) -> bool {
-    c >= b'a' && c <= b'z'
-}
+impl ASCII {
+    fn is_digit(c: u8) -> bool {
+        c >= b'0' && c <= b'9'
+    }
 
-fn is_upper(c: u8) -> bool {
-    c >= b'A' && c <= b'Z'
-}
+    fn is_lower(c: u8) -> bool {
+        c >= b'a' && c <= b'z'
+    }
 
-fn is_alpha(c: u8) -> bool {
-    is_lower(c) || is_upper(c)
-}
+    fn is_upper(c: u8) -> bool {
+        c >= b'A' && c <= b'Z'
+    }
 
-fn is_alnum(c: u8) -> bool {
-    is_alpha(c) || is_digit(c)
+    fn is_alpha(c: u8) -> bool {
+        Self::is_lower(c) || Self::is_upper(c)
+    }
+
+    fn is_alnum(c: u8) -> bool {
+        Self::is_alpha(c) || Self::is_digit(c)
+    }
 }
