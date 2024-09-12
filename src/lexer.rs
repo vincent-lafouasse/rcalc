@@ -37,6 +37,7 @@ impl Lexer {
     }
 
     fn scan_next_token(&mut self) -> Option<Token> {
+        self.skip_whitespace();
         let c = match self.advance() {
             None => return None,
             Some(c) => c,
@@ -46,15 +47,10 @@ impl Lexer {
             b'+' => Some(Token::Add),
             b'*' => Some(Token::Multiply),
             b'=' => Some(Token::Equal),
+            (b'0'..=b'9') => None,
             _ => None,
         } {
             return Some(token);
-        }
-
-        if c.is_ascii_digit() {
-            if let Some(number) = self.scan_number() {
-                return Some(Token::Number(number));
-            }
         }
 
         None
@@ -82,6 +78,16 @@ impl Lexer {
             None
         } else {
             Some(self.chars[self.current + 1])
+        }
+    }
+
+    fn skip_whitespace(&mut self) {
+        while let Some(c) = self.peek() {
+            if c.is_ascii_whitespace() {
+                self.advance();
+            } else {
+                break;
+            }
         }
     }
 
