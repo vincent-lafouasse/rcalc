@@ -42,16 +42,26 @@ impl Lexer {
             Some(c) => c,
         };
 
-        match c {
+        if let Some(token) = match c {
             b'+' => Some(Token::Add),
             b'*' => Some(Token::Multiply),
             b'=' => Some(Token::Equal),
             _ => None,
+        } {
+            return Some(token);
         }
+
+        if c.is_ascii_digit() {
+            if let Some(number) = self.scan_number() {
+                return Some(Token::Number(number));
+            }
+        }
+
+        None
     }
 
-    fn scan_number(&mut self) -> f64 {
-        0.0
+    fn scan_number(&mut self) -> Option<f64> {
+        Some(0.0)
     }
 
     fn advance(&mut self) -> Option<u8> {
